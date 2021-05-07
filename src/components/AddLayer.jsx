@@ -2,7 +2,8 @@ import React from "react";
 import { layers } from "../pages/MainPage";
 
 // testing commit
-
+// testing squash commit #2
+// testing
 
 const AddLayer = ({
   onChange,
