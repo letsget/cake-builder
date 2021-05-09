@@ -1,5 +1,8 @@
 import React from "react";
-import { layers } from "../pages/MainPage";
+import { Button } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
+import { Label } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 
 // testing commit
 // testing squash commit #2
@@ -12,43 +15,46 @@ const AddLayer = ({
   layer,
   height,
   price,
+  options,
 }) => {
   return (
-    <div className="add-form">
-      <div className="title">
-        <span>Выбрать Корж:</span>
-        <select
-          className="custom-select"
-          name="select"
-          id="select"
-          value={layer}
-          onChange={(e) => onChange(e)}
-        >
-          {layers.map((layer) => (
-            <option key={layer.type}>{layer.type}</option>
-          ))}
-        </select>
+    <form className={"form"}>
+      <div className="add-form">
+        <div className="title">
+          <span className={"header-title"}>Выбрать Корж:</span>
+          <div className="option-control">
+            <Dropdown
+              placeholder={"Выберете корж"}
+              selection
+              options={options}
+            />
+          </div>
+        </div>
+        <div className="title">
+          <span className={"header-title"}>Толщина коржа:</span>
+          <div className={"option-control"}>
+            <Icon name="plus" />
+            <Icon name="minus" />
+            <Label basic color="blue">
+              {height} см
+            </Label>
+          </div>
+        </div>
+        <div className="title">
+          <span className={"header-title"}> Цена:</span>
+          <div className="option-control">
+            <Label basic color="blue">
+              {price} ₽
+            </Label>
+          </div>
+        </div>
       </div>
-      <div className="title">
-        <span>Толщина коржа:</span>
-        <input
-          type="number"
-          className="inp"
-          value={height}
-          max={9}
-          min={3}
-          step={3}
-          onChange={(e) => onHeightChange(e)}
-        />
+      <div className="btn">
+        <Button primary color={"blue"} onClick={onAdd}>
+          Добавить
+        </Button>
       </div>
-      <div className="title">
-        <span> Цена:</span>
-        <span className="price-field">{price}</span>
-      </div>
-      <button onClick={onAdd} className="btn">
-        Добавить
-      </button>
-    </div>
+    </form>
   );
 };
 

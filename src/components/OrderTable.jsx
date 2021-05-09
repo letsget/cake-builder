@@ -1,10 +1,9 @@
 import React from "react";
-import { layers } from "../pages/MainPage";
 
 const OrderTable = ({ order, onChange, onDelete, handleLayerHeight }) => {
   return (
     <>
-      {order.map(({ id, layer, height, price }) => {
+      {order.map(({ id, layer, height, price, layers }) => {
         return (
           <>
             <div key={id} className="edit-order">
@@ -30,7 +29,7 @@ const OrderTable = ({ order, onChange, onDelete, handleLayerHeight }) => {
               />
               <span className="price-field">цена: {price}</span>
               <span className="remove-icon" onClick={() => onDelete(id)}>
-                <i className="fas fa-times"></i>
+                <i className="fas fa-times" />
               </span>
             </div>
           </>

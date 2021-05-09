@@ -3,39 +3,9 @@ import AddLayer from "../components/AddLayer";
 import Layers from "../components/Layers";
 import OrderTable from "../components/OrderTable";
 import TotalOrder from "../components/TotalOrder";
-
-export const layers = [
-  {
-    type: "Бисквитный",
-    height: 3,
-    price: 200,
-    img: "images/biscuit.png",
-  },
-  {
-    type: "Шоколадный",
-    price: 300,
-    img: "images/chocolate.png",
-    height: 3,
-  },
-  {
-    type: "Ореховый",
-    price: 350,
-    img: "images/nut-chocolate.png",
-    height: 3,
-  },
-  {
-    type: "Безе",
-    price: 250,
-    img: "images/Beze.png",
-    height: 3,
-  },
-  {
-    type: "Кокосовый",
-    price: 400,
-    img: "images/coconut.png",
-    height: 3,
-  },
-];
+import { connect } from "react-redux";
+import { getAllLayers, getOptionsForDropdown } from "../selectors";
+import { Segment } from "semantic-ui-react";
 
 const getVal = (arr, layer) => arr.find((e) => e.type === layer);
 
@@ -51,7 +21,7 @@ function calcLayerPrice(h, price) {
   }
 }
 
-const MainPage = () => {
+const MainPage = ({ layers, options }) => {
   const [total, setTotal] = useState(0);
   const [selectedLayer, setSelectedLayer] = useState(layers[0].type);
   const [height, setHeight] = useState(3);
@@ -116,6 +86,8 @@ const MainPage = () => {
   return (
     <div className="container">
       <AddLayer
+        layers={layers}
+        options={options}
         onAdd={handleAddOrder}
         layer={selectedLayer}
         onChange={handleSelectedChange}
@@ -130,6 +102,7 @@ const MainPage = () => {
           </div>
           <div className="table">
             <OrderTable
+              layers={layers}
               order={order}
               onChange={handleLayerChange}
               onDelete={handleRemove}
@@ -138,9 +111,14 @@ const MainPage = () => {
           </div>
         </div>
       ) : null}
-      <TotalOrder total={total} />
+      <Segment color="blue">{total}</Segment>
     </div>
   );
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  layers: getAllLayers(state),
+  options: getOptionsForDropdown(state),
+});
+
+export default connect(mapStateToProps)(MainPage);

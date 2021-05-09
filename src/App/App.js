@@ -1,6 +1,7 @@
-import '../App.css';
-import MainPage from '../pages/MainPage';
+import "../App.css";
+import MainPage from "../pages/MainPage";
+import "semantic-ui-css/semantic.min.css";
 
-const App = () => <MainPage />
+const App = () => <MainPage />;
 
 export default App;
